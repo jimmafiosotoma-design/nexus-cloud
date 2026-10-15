@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <title>NEXUS CLOUD</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 24px;
+      background: #090d16; color: white;
+      font-family: Arial, sans-serif;
+    }
+    header { color: #65f5bb; font-size: 25px;
+      font-weight: 900; margin: 12px 0 35px; }
+    main { max-width: 650px; margin: auto; }
+    h1 { font-size: 38px; margin-bottom: 12px; }
+    p { color: #aab5c9; line-height: 1.6; }
+    .panel {
+      background: #151d2c; padding: 22px;
+      border-radius: 18px; margin-top: 24px;
+    }
+    input, button {
+      width: 100%; padding: 15px;
+      border-radius: 10px; font-size: 16px;
+      margin-top: 12px;
+    }
+    input {
+      background: #0b111d; color: white;
+      border: 1px solid #364258;
+    }
+    button {
+      background: #65f5bb; color: #07120d;
+      font-weight: bold; border: 0;
+    }
+    .note { font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>🎮 NEXUS CLOUD</header>
+
+    <h1>Seu PC. Sua nuvem.</h1>
+    <p>
+      Jogue seus jogos de PC pelo navegador
+      do celular, usando streaming remoto.
+    </p>
+
+    <section class="panel">
+      <h2>Conectar ao servidor</h2>
+      <p>Insira o endereço HTTPS do seu
+      cliente de streaming configurado.</p>
+
+      <input id="server"
+        type="url"
+        placeholder="https://seu-servidor.com"
+        autocomplete="url">
+
+      <button id="connect">
+        ABRIR CLOUD GAMING
+      </button>
+
+      <p id="status" class="note">
+        Nenhum servidor conectado.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Como começar</h2>
+      <p>1. Configure um host de jogos.</p>
+      <p>2. Instale um servidor de streaming.</p>
+      <p>3. Coloque o endereço dele acima.</p>
+    </section>
+
+    <p class="note">
+      NEXUS CLOUD — projeto experimental.
+      Nenhum servidor é fornecido por esta página.
+    </p>
+  </main>
+
+  <script>
+    const server = document.querySelector("#server");
+    const status = document.querySelector("#status");
+
+    document.querySelector("#connect")
+      .addEventListener("click", () => {
+        let url;
+
+        try {
+          url = new URL(server.value.trim());
+        } catch {
+          status.textContent =
+            "Digite um endereço HTTPS válido.";
+          return;
+        }
+
+        if (url.protocol !== "https:") {
+          status.textContent =
+            "Use HTTPS para uma conexão segura.";
+          return;
+        }
+
+        status.textContent =
+          "Abrindo o cliente de streaming...";
+
+        window.location.href = url.href;
+      });
+  </script>
+</body>
+</html>
